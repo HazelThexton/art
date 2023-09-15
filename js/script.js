@@ -25,7 +25,7 @@ let variation4 = 1;
 //
 // Loads the image before the program starts
 function preload() {
-    img = loadImage('/assets/images/12.jpg');
+    img = loadImage('assets/images/12.jpg');
     //
 }
 
