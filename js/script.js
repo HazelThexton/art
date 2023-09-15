@@ -26,9 +26,9 @@ let variation4 = 1;
 //
 // Loads the image before the program starts
 function preload() {
-    //img = loadImage('/art/assets/images/12.jpg');
+    img = loadImage('/art/assets/images/12.jpg');
     //
-	img = loadImage('https://64.media.tumblr.com/5819aec7eacee968ef93a94710fba150/41068863f9667fec-1c/s1280x1920/1e3a3490fffcf574a2e68ceace2caee34790ff74.pnj');
+	//img = loadImage('https://64.media.tumblr.com/5819aec7eacee968ef93a94710fba150/41068863f9667fec-1c/s1280x1920/1e3a3490fffcf574a2e68ceace2caee34790ff74.pnj');
 }
 
 // setup()
