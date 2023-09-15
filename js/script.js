@@ -25,7 +25,7 @@ let variation4 = 1;
 //
 // Loads the image before the program starts
 function preload() {
-    img = loadImage('https://64.media.tumblr.com/5819aec7eacee968ef93a94710fba150/41068863f9667fec-1c/s1280x1920/1e3a3490fffcf574a2e68ceace2caee34790ff74.pnj');
+    img = loadImage('assets/images/12.jpg');
     //
 }
 
@@ -34,8 +34,8 @@ function preload() {
 // Creates the canvas, resizes the image
 function setup() {
     rectMode(CENTER);
-    scale = 0.5;
-    img.resize(img.width * scale, img.height * scale);
+   scale = windowHeight/img.height;
+    img.resize(img.width * scale, windowHeight);
     createCanvas(img.width, img.height);
     background("#ffffff");
 
