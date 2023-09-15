@@ -13,6 +13,7 @@ var color2;
 var color3;
 
 let dotColor;
+let pastColor = [];
 let bgColor;
 let img;
 let scale;
@@ -25,8 +26,9 @@ let variation4 = 1;
 //
 // Loads the image before the program starts
 function preload() {
-    img = loadImage('/art/assets/images/12.jpg');
+    //img = loadImage('/art/assets/images/12.jpg');
     //
+	img = loadImage('https://64.media.tumblr.com/5819aec7eacee968ef93a94710fba150/41068863f9667fec-1c/s1280x1920/1e3a3490fffcf574a2e68ceace2caee34790ff74.pnj');
 }
 
 // setup()
@@ -104,8 +106,21 @@ function pickColors(dotRadius, i, centerX, centerY) {
     let centerColor2Y = constrain(i * shapeSize + random(0, shapeSize), 0, height);
 
     dotColor = img.get(centerX, centerY);
+	if(deltaE([dotColor[0],dotColor[1],dotColor[2]], [pastColor[0],pastColor[1],pastColor[2]]) <= 100){
+	centerColorX = constrain(offsetX + random(0, shapeSize), 0, width);
+	centerColorY = constrain(i * shapeSize + random(0, shapeSize), 0, height);
+	dotColor = img.get(centerX, centerY);
+	}
     dotColor2 = img.get(centerColorX, centerColorY);
-    dotColor3 = img.get(centerColor2X, centerColor2Y);
+	console.log(deltaE([dotColor[0],dotColor[1],dotColor[2]], [dotColor2[0],dotColor2[1],dotColor2[2]]));
+	if(deltaE([dotColor[0],dotColor[1],dotColor[2]], [dotColor2[0],dotColor2[1],dotColor2[2]]) <= 100){
+		console.log("TRUE");
+	centerColorX = constrain(offsetX + random(0, shapeSize), 0, width);
+	centerColorY = constrain(i * shapeSize + random(0, shapeSize), 0, height);
+    dotColor2 = img.get(centerColorX, centerColorY);
+	}
+		
+		dotColor3 = img.get(centerColor2X, centerColor2Y);
     dotColor4 = img.get(centerColor2X, centerColor2Y);
 
     for (let index = 0; index < dotColor.length; index++) {
@@ -117,7 +132,46 @@ function pickColors(dotRadius, i, centerX, centerY) {
         dotColor2[index] = constrain(dotColor2[index] + variation2, 0, 255);
         dotColor3[index] = constrain(dotColor3[index] + variation3, 0, 255);
         dotColor4[index] = constrain(dotColor4[index] + variation4, 0, 255);
+		
     }
+	
+	
+   pastColor = dotColor; 
+}
+
+function deltaE(rgbA, rgbB) {
+  let labA = rgb2lab(rgbA);
+  let labB = rgb2lab(rgbB);
+  let deltaL = labA[0] - labB[0];
+  let deltaA = labA[1] - labB[1];
+  let deltaB = labA[2] - labB[2];
+  let c1 = Math.sqrt(labA[1] * labA[1] + labA[2] * labA[2]);
+  let c2 = Math.sqrt(labB[1] * labB[1] + labB[2] * labB[2]);
+  let deltaC = c1 - c2;
+  let deltaH = deltaA * deltaA + deltaB * deltaB - deltaC * deltaC;
+  deltaH = deltaH < 0 ? 0 : Math.sqrt(deltaH);
+  let sc = 1.0 + 0.045 * c1;
+  let sh = 1.0 + 0.015 * c1;
+  let deltaLKlsl = deltaL / (1.0);
+  let deltaCkcsc = deltaC / (sc);
+  let deltaHkhsh = deltaH / (sh);
+  let i = deltaLKlsl * deltaLKlsl + deltaCkcsc * deltaCkcsc + deltaHkhsh * deltaHkhsh;
+  return i < 0 ? 0 : Math.sqrt(i);
+}
+
+function rgb2lab(rgb){
+  let r = rgb[0] / 255, g = rgb[1] / 255, b = rgb[2] / 255, x, y, z;
+  r = (r > 0.04045) ? Math.pow((r + 0.055) / 1.055, 2.4) : r / 12.92;
+  g = (g > 0.04045) ? Math.pow((g + 0.055) / 1.055, 2.4) : g / 12.92;
+  b = (b > 0.04045) ? Math.pow((b + 0.055) / 1.055, 2.4) : b / 12.92;
+  
+  x = (r * 0.4124 + g * 0.3576 + b * 0.1805) / 0.95047;
+  y = (r * 0.2126 + g * 0.7152 + b * 0.0722) / 1.00000;
+  z = (r * 0.0193 + g * 0.1192 + b * 0.9505) / 1.08883;
+  x = (x > 0.008856) ? Math.pow(x, 1/3) : (7.787 * x) + 16/116;
+  y = (y > 0.008856) ? Math.pow(y, 1/3) : (7.787 * y) + 16/116;
+  z = (z > 0.008856) ? Math.pow(z, 1/3) : (7.787 * z) + 16/116;
+  return [(116 * y) - 16, 500 * (x - y), 200 * (y - z)]
 }
 
 //function draw() {
