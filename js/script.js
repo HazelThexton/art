@@ -28,7 +28,7 @@ let variation4 = 1;
 function preload() {
     img = loadImage('/art/assets/images/12.jpg');
     //
-	//img = loadImage('https://64.media.tumblr.com/5819aec7eacee968ef93a94710fba150/41068863f9667fec-1c/s1280x1920/1e3a3490fffcf574a2e68ceace2caee34790ff74.pnj');
+	//img = loadImage('https://64.media.tumblr.com/efb59c1d4ffd277b1104664c48423d05/5ff40c7a6f818087-87/s540x810/9d7f7d354e3a8cde2dcfbdbedf628703902c2459.pnj');
 }
 
 // setup()
@@ -38,12 +38,13 @@ function setup() {
     rectMode(CENTER);
    scale = windowHeight/img.height;
     img.resize(img.width * scale, windowHeight);
+	
     createCanvas(img.width, img.height);
     background("#ffffff");
 
     shapeSize = 20;
     shapeSize2 = shapeSize / 5 * 3;
-    shapeSize3 = shapeSize / 5 * 2;
+    shapeSize3 = shapeSize / 5 * 1.5;
     shapeSize4 = shapeSize / 5;
     numDotsInColumn = Math.floor(height / shapeSize);
     // Magnitude of randomness in inner shape size
@@ -77,13 +78,30 @@ function drawColumnDots(dotRadius, offsetX) {
         noStroke()
         fill(dotColor);
         rect(centerX, centerY, shapeSize + random(0, 1), shapeSize + random(0, 1));
-        fill(dotColor2);
+        
+  push()
 
-        let r = random(-mag, mag);
-        rect(centerX, centerY, shapeSize2 + r, shapeSize2 + r);
+    translate(centerX, centerY);
+	angleMode(DEGREES);
+    rotate(random(-5, 5));
+    rectMode(CENTER)
+	fill(dotColor2);
+    let r = random(-mag, mag);
+        rect(0, 0, shapeSize2 + r, shapeSize2 + r);
 
+    pop();
+      push()
+
+    translate(centerX, centerY);
+	angleMode(DEGREES);
+    rotate(random(-5, 5));
+    rectMode(CENTER)
         fill(dotColor3);
-        rect(centerX, centerY, shapeSize4 + r / 2, shapeSize4 + r / 2);
+        rect(0, 0, shapeSize3 + r / 2, shapeSize3 + r / 2);
+
+    pop();  
+
+        
         //fill(dotColor4);
         //ellipse(centerX + -dotRadius, centerY + -dotRadius, shapeSize4 + r/2);
     }
@@ -106,15 +124,14 @@ function pickColors(dotRadius, i, centerX, centerY) {
     let centerColor2Y = constrain(i * shapeSize + random(0, shapeSize), 0, height);
 
     dotColor = img.get(centerX, centerY);
-	if(deltaE([dotColor[0],dotColor[1],dotColor[2]], [pastColor[0],pastColor[1],pastColor[2]]) <= 100){
+	if(deltaE([dotColor[0],dotColor[1],dotColor[2]], [pastColor[0],pastColor[1],pastColor[2]]) <= 50){
 	centerColorX = constrain(offsetX + random(0, shapeSize), 0, width);
 	centerColorY = constrain(i * shapeSize + random(0, shapeSize), 0, height);
 	dotColor = img.get(centerX, centerY);
 	}
     dotColor2 = img.get(centerColorX, centerColorY);
-	console.log(deltaE([dotColor[0],dotColor[1],dotColor[2]], [dotColor2[0],dotColor2[1],dotColor2[2]]));
-	if(deltaE([dotColor[0],dotColor[1],dotColor[2]], [dotColor2[0],dotColor2[1],dotColor2[2]]) <= 100){
-		console.log("TRUE");
+	if(deltaE([dotColor[0],dotColor[1],dotColor[2]], [dotColor2[0],dotColor2[1],dotColor2[2]]) <= 50){
+		
 	centerColorX = constrain(offsetX + random(0, shapeSize), 0, width);
 	centerColorY = constrain(i * shapeSize + random(0, shapeSize), 0, height);
     dotColor2 = img.get(centerColorX, centerColorY);
