@@ -48,7 +48,7 @@ function setup() {
     shapeSize4 = shapeSize / 5;
     numDotsInColumn = Math.floor(height / shapeSize);
     // Magnitude of randomness in inner shape size
-    mag = 4;
+    mag = 0;
 
     //noStroke();
     noLoop();
