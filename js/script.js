@@ -26,7 +26,7 @@ let variation4 = 1;
 //
 // Loads the image before the program starts
 function preload() {
-    img = loadImage('/art/assets/images/12.jpg');
+    img = loadImage('/art/assets/images/17.jpg');
     //
 	//img = loadImage('https://64.media.tumblr.com/efb59c1d4ffd277b1104664c48423d05/5ff40c7a6f818087-87/s540x810/9d7f7d354e3a8cde2dcfbdbedf628703902c2459.pnj');
 }
