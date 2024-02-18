@@ -42,7 +42,7 @@ function setup() {
     createCanvas(img.width, img.height);
     background("#ffffff");
 
-    shapeSize = 10;
+    shapeSize = 5;
     shapeSize2 = shapeSize / 5 * 3;
     shapeSize3 = shapeSize / 5 * 1.5;
     shapeSize4 = shapeSize / 5;
